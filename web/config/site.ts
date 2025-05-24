@@ -38,7 +38,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/",
+    github: "https://github.com/FjrREPO/tumbuh-sui",
     twitter: "https://twitter.com/",
     docs: "https://google.com",
     discord: "https://discord.gg/",

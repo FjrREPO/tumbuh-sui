@@ -1,0 +1,174 @@
+[package]
+name = "tumbuh"
+version = "1.0.0"
+edition = "2024.beta"
+authors = ["USDC Team <team@usdc.io>"]
+license = "MIT"
+published-at = "0x0"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
+MoveStdlib = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/move-stdlib", rev = "framework/testnet" }
+
+
+# Optional: For integration with popular Sui DeFi protocols
+# DeepBook = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/deepbook", rev = "framework/testnet" }
+
+[addresses]
+tumbuh = "0x0"
+std = "0x1"
+sui = "0x2"
+test_admin = "0x100"
+
+# Protocol addresses (to be updated with actual addresses)
+swap_router = "0x0"
+lending_protocol = "0x0"
+yield_protocol = "0x0"
+
+# Token addresses (to be updated with actual token addresses)
+usdc_token = "0x0"
+usdt_token = "0x0"
+
+[dev-dependencies]
+# Test dependencies would go here
+
+[dev-addresses]
+# Development addresses for testing
+# test_admin = "0x100"
+# test_manager = "0x100"
+# test_ai_agent = "0x100"
+# test_user = "0x101"
+
+# Test token addresses
+# test_usdc = "0x2000"
+# test_usdt = "0x2001"
+
+# Test protocol addresses
+# test_swap_router = "0x3000"
+# test_lending = "0x3001"
+# test_yield = "0x3002"
+
+[tool.move]
+# Move compiler options
+edition = "2024.beta"
+flavor = "sui"
+
+# Compiler flags
+[tool.move.package]
+# Skip fetching latest git dependencies during build
+skip-fetch-latest-git-deps = false
+
+# Warnings and linting
+[tool.move.lint]
+# Enable all lints
+level = "strict"
+
+# Specific lint configurations
+[tool.move.lint.allow]
+# Allow specific lints if needed
+# unused_variable = true
+# dead_code = true
+
+[tool.move.lint.deny]
+# Deny specific patterns
+# implicit_some_encoding = true
+
+# Testing configuration
+[tool.move.test]
+# Test timeout in seconds
+timeout = 300
+
+# Coverage options
+[tool.move.coverage]
+# Enable coverage collection
+enabled = true
+# Output directory for coverage reports
+output_dir = "coverage"
+
+# Documentation generation
+[tool.move.doc]
+# Include private functions in documentation
+include_impl = true
+# Include dependency documentation
+include_deps = false
+# Output directory for documentation
+output_dir = "docs"
+
+# Deployment configuration
+[tool.sui]
+# Default network for deployment
+network = "testnet"
+
+# Gas budget for transactions
+gas_budget = 100000000
+
+[env]
+# Environment variables for different networks
+[env.localnet]
+RPC_URL = "http://127.0.0.1:9000"
+FAUCET_URL = "http://127.0.0.1:9123/gas"
+
+[env.devnet]
+RPC_URL = "https://fullnode.devnet.sui.io:443"
+FAUCET_URL = "https://faucet.devnet.sui.io/gas"
+
+[env.testnet]
+RPC_URL = "https://fullnode.testnet.sui.io:443"
+FAUCET_URL = "https://faucet.testnet.sui.io/gas"
+
+[env.mainnet]
+RPC_URL = "https://fullnode.mainnet.sui.io:443"
+# No faucet for mainnet
+
+# Build profiles
+[profile.dev]
+# Development build settings
+debug = true
+optimize = false
+# Additional dev flags
+abort_on_arithmetic_error = true
+
+[profile.release]
+# Production build settings
+debug = false
+optimize = true
+# Strip debug info for smaller bytecode
+strip_debug_info = true
+
+[profile.test]
+# Test build settings
+debug = true
+optimize = false
+# Enable additional test features
+test_mode = true
+
+# Migration settings (for upgrades)
+[tool.migration]
+# Package upgrade policy
+upgrade_policy = "compatible"
+# Dependency upgrade policy
+dependency_upgrade_policy = "compatible"
+
+# Scripts configuration
+[scripts]
+# Common scripts for development
+build = "sui move build"
+test = "sui move test"
+publish = "sui client publish --gas-budget 100000000"
+upgrade = "sui client upgrade --gas-budget 100000000"
+
+# Integration test scripts
+integration-test = "sui move test --filter integration"
+unit-test = "sui move test --filter unit"
+
+# Coverage and documentation
+coverage = "sui move test --coverage"
+docs = "sui move build --doc"
+
+# Network specific commands
+publish-testnet = "sui client publish --gas-budget 100000000 --network testnet"
+publish-mainnet = "sui client publish --gas-budget 200000000 --network mainnet"
+
+# Verification scripts
+verify-testnet = "sui client verify-source --network testnet"
+verify-mainnet = "sui client verify-source --network mainnet"
